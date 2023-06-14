@@ -10,7 +10,7 @@ exports.chargeRequestRedis = async function (input) {
     const redisClient = await getRedisClient();
     var remainingBalance = await getBalanceRedis(redisClient, KEY);
     var charges = await getCharges(input.serviceType, input.unit);
-    const isAuthorized = authorizeRequest(remainingBalance, charges);
+    const isAuthorized = await authorizeRequest(remainingBalance, charges);
     if (!isAuthorized) {
         return {
             remainingBalance,
